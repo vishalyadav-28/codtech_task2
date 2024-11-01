@@ -1,0 +1,47 @@
+create database students_management;
+  use students_management;
+  
+  create table student
+  (S_id int primary key auto_increment,
+   S_name varchar(40) not null,
+   S_age smallint,
+   S_gender enum("male","female"),
+   Email varchar(30) unique,
+   phone char(10));
+ insert into student(S_name,S_age,S_gender,Email,phone)
+              values("vishal",22,"male","vvkkyy654321@gmail.com",8872028193);
+insert into student(S_name,S_age,S_gender,Email,phone)
+			values("vishali",22,"female","vvkkyy6543210@gmail.com",8872028192);
+ select * from student;
+ drop table student;
+ 
+ create table course
+ (course_id int primary key auto_increment,
+ course_name varchar(10) not null,
+ course_fee int);
+
+ insert into course(course_name,course_fee)
+             values("DA",50000);
+             insert into course(course_name,course_fee)
+             values("DS",52000);
+ select * from course;
+ 
+ create table enrollment(enrollment_id int primary key auto_increment,
+                         S_id int,
+                         Course_id int,
+                         grade char(1),
+                         foreign key (S_id) REFERENCES student(S_id),
+                         foreign key (Course_id) REFERENCES Course(Course_id));
+                         
+	insert into enrollment(S_id,Course_id,grade)
+					values(1,1,"a");
+                    	insert into enrollment(S_id,Course_id,grade)
+					values(2,2,"a");
+	select * from enrollment;
+    
+    select student.s_name,student.s_age,student.email,
+    course.course_name,course.course_fee,enrollment.grade
+    from student inner join enrollment on 
+    student.s_id=enrollment.s_id inner join course on
+    course.course_id=enrollment.course_id where 
+    student.s_gender = "male";
